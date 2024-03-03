@@ -1,2 +1,1 @@
-# CalendarApp
-Stevenson Calendar App Code
+# Angaaza-Inventory-App
