@@ -1,0 +1,200 @@
+/* Global styles */
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family: "Poppins", verdana, sans-serif;
+  background-image: url("https://cdn.glitch.global/72b70080-3b25-474a-a7f1-2196a164456b/better_better.png?v=1709484390367");
+}
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+*{
+  font-family: "Poppins", sans-serif; 
+}
+/* Navigation bar styles */
+.nav-bar {  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 20px;
+  width: 100%;
+}
+
+/* Button container styles */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  gap: 150px;
+  margin-top: 70px;
+}
+
+/* Button styles */
+.buttons button {
+  padding: 10px;
+  border-radius: 2rem;
+  width: 50vw;
+  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
+  border-color: #002647;
+  font-size: 42px;
+  transition: background-color .75s ease-in;
+}
+ 
+.buttons button:hover {
+  background-position: right center;
+  background: white;
+}
+
+/* Font styles */
+.libre-baskerville-regular {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Parent container styles */
+.parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Reset styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation bar container styles */
+.nav-bare  { 
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+}
+
+/* Navigation button styles */
+.inview,
+.input {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  text-decoration: none;
+  color: #008080;
+  transition: 0.5s ease;
+}
+
+.inview {
+    margin-left: 50px; /* Adjust this value to your desired size */
+    margin-right: 50px;
+}
+
+.input {
+  margin-left: 50px;
+  margin-right: 50px;
+  color: rgb(0, 151, 185);
+}
+
+.inview:hover,
+.input:hover {
+  text-decoration: none;
+  color: #006400;
+}
+
+/* Form container styles */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+/* Form input styles */
+.form-input {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.form-input label {
+  margin-bottom: 5px;
+}
+
+/* Submit button styles */
+.submit-button {
+  margin-top: 20px;
+  align-self: center;
+}
+
+.submit-button button {
+  padding: 10px 20px;
+  border-radius: 2rem;
+  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
+  border-color: #002647;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.75s ease-in;
+}
+
+.submit-button button:hover {
+  background-position: right center;
+  background: white;
+}
+
+/* Form input styles */
+.sl,
+.sv,
+.output,
+.star,
+.en,
+.con,
+.ven,
+.brand {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding-top: 5%;
+}
+
+.sl label,
+.sv label,
+.output label,
+.star label,
+.en label,
+.con label,
+.ven label,
+.brand label {
+  margin-bottom: 5px;
+}
+
+/* Submit button styles */
+.submit {
+  margin-top: 20px;
+  align-self: center;
+}
+
+.submit button {
+  padding: 10px 20px;
+  border-radius: 2rem;
+  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
+  border-color: #002647;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.75s ease-in;
+}
+
+.submit button:hover {
+  background-position: right center;
+  background: white;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
