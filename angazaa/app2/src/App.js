@@ -272,7 +272,7 @@ function Home() {
   }
 
   return (
-    <body>
+    <div>
       <div className="nav-bar">
         <img src="https://cdn.glitch.global/69973fd0-2612-442a-86f4-4900da5d229f/IMG_0522.jpeg?v=1709446089891" alt="W" width="500" height="150"/>
       </div>
@@ -280,7 +280,7 @@ function Home() {
         <button onClick={changePageA}>Add device</button>
         <button onClick={changePageB}>View Inventory</button>
       </div>
-    </body>
+    </div>
   );
 }
 
@@ -350,6 +350,7 @@ function App() {
         <Route path="/item/:id" element={<ItemDetails />} />
         <Route path="/inven-input" element={<Form />} />
         <Route path="/inven-view" element={<Table />} />
+        <Route path="*" element={<Home />} />
       </Routes>
     </div>
   );
