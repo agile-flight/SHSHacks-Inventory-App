@@ -5,7 +5,10 @@ import QRCode from "react-qr-code";
 import DataTable from "react-data-table-component";
 import './App.css';
 
-import { BASE_URL } from './config';
+// Fallback BASE_URL if config fails
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5050";
+
+console.log('App.js loaded, BASE_URL:', BASE_URL);
 
 function Tutorial() {
   return (
@@ -263,6 +266,8 @@ function Navbar() {
 function Home() {
   let navigate = useNavigate();
 
+  console.log('Home component rendering');
+
   const changePageA = () => {
     navigate("/inven-input");
   }
@@ -272,7 +277,8 @@ function Home() {
   }
 
   return (
-    <div>
+    <div style={{ padding: '20px', textAlign: 'center' }}>
+      <h1 style={{ color: 'white', marginBottom: '30px' }}>Angaaza Inventory System</h1>
       <div className="nav-bar">
         <img src="https://cdn.glitch.global/69973fd0-2612-442a-86f4-4900da5d229f/IMG_0522.jpeg?v=1709446089891" alt="W" width="500" height="150"/>
       </div>
@@ -280,6 +286,7 @@ function Home() {
         <button onClick={changePageA}>Add device</button>
         <button onClick={changePageB}>View Inventory</button>
       </div>
+      <p style={{ color: 'white', marginTop: '20px' }}>Welcome to the Inventory Management System</p>
     </div>
   );
 }
@@ -343,6 +350,8 @@ function ItemDetails() {
 }
 
 function App() {
+  console.log('App component rendering');
+  
   return (
     <div className="App">
       <Routes>
