@@ -6,11 +6,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Database configuration with environment variables
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    database: "sys"
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "password",
+    database: process.env.DB_NAME || "sys"
 });
 
 db.connect((err) => {
@@ -37,6 +38,11 @@ db.connect((err) => {
         }
         console.log('Devices table created or already exists');
     });
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
 app.get('/', (req, res) => {

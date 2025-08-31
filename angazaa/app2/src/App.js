@@ -5,7 +5,7 @@ import QRCode from "react-qr-code";
 import DataTable from "react-data-table-component";
 import './App.css';
 
-const BASE_URL = "http://localhost:5050"; 
+import { BASE_URL } from './config';
 
 function Tutorial() {
   return (
@@ -291,7 +291,7 @@ function ItemDetails() {
 
   useEffect(() => {
     fetchDeviceDetails();
-  }, []);
+  }, [id]);
 
   const fetchDeviceDetails = async () => {
     try {
