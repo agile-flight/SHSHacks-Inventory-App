@@ -323,19 +323,21 @@ function ItemDetails() {
   }
 
   return (
-    <div>
+    <div className="item-details">
       <h2>Item Details</h2>
-      <p>Serial Number: {rowData.serial_number}</p>
-      <p>OS: {rowData.os}</p>
-      <p>Vendor: {rowData.vendor}</p>
-      <p>Device Name: {rowData.device_name}</p>
-      <p>Size: {rowData.size}</p>
-      <p>CPU: {rowData.cpu}</p>
-      <p>Condition: {rowData.condit}</p>
-      <p>Location: {rowData.location}</p>
+      <p><strong>Serial Number:</strong> {rowData.serial_number}</p>
+      <p><strong>OS:</strong> {rowData.os}</p>
+      <p><strong>Vendor:</strong> {rowData.vendor}</p>
+      <p><strong>Device Name:</strong> {rowData.device_name}</p>
+      <p><strong>Size:</strong> {rowData.size}</p>
+      <p><strong>CPU:</strong> {rowData.cpu}</p>
+      <p><strong>Condition:</strong> {rowData.condit}</p>
+      <p><strong>Location:</strong> {rowData.location}</p>
       <button onClick={() => downloadBlob(csv, "device_details.csv", "text/csv")}>Download CSV</button>
-      <p>Share</p>
-      {id && <QRCode value={`http://localhost:3000/item/${id}`} />}
+      <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <p><strong>Share via QR Code</strong></p>
+        {id && <QRCode value={`http://localhost:3000/item/${id}`} />}
+      </div>
     </div>
   );
 }

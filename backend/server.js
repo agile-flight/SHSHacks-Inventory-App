@@ -11,8 +11,18 @@ const db = mysql.createConnection({
     host: process.env.DB_HOST || "localhost",
     user: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "password",
-    database: process.env.DB_NAME || "sys"
+    database: process.env.DB_NAME || "sys",
+    port: process.env.DB_PORT || 3306
 });
+
+// Alternative: Use PostgreSQL if DATABASE_URL is provided
+if (process.env.DATABASE_URL) {
+    // For platforms like Supabase, Railway, etc.
+    console.log('Using PostgreSQL connection');
+    // You would need to install pg package: npm install pg
+    // const { Pool } = require('pg');
+    // const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+}
 
 db.connect((err) => {
     if (err) {
