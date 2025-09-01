@@ -240,4 +240,35 @@ function ItemDetails() {
       <div className="item-card">
         <h2>Item Details</h2>
         {Object.entries(data).map(([key,val])=>
-          <p key={key}><strong>{key.replace('_',' ')}:</strong> {val || '
+         <p key={key}><strong>{key.replace('_', ' ')}:</strong> {val || 'N/A'}</p>
+        )}
+        <div className="item-actions">
+          <button onClick={downloadCSV}>Download CSV</button>
+        </div>
+        {id && (
+          <div className="qr-code">
+            <p><strong>Share via QR Code</strong></p>
+            <QRCode value={`http://localhost:3000/item/${id}`} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Main App
+function App() {
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/item/:id" element={<ItemDetails />} />
+        <Route path="/inven-input" element={<Form />} />
+        <Route path="/inven-view" element={<Table />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
+    </div>
+  );
+}
+
+export default App;
