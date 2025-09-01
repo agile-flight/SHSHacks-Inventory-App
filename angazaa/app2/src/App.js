@@ -148,21 +148,40 @@ function Form() {
     },
   });
 
-  // Auto-fill function
-  const handleAutoFill = () => {
-    const autoData = autoFillDeviceData(formik.values.serial_number, formik.values.mac_address);
-    if (autoData) {
-      formik.setValues({
-        ...formik.values,
-        ...autoData
-      });
+  // Handle serial number change with auto-fill
+  const handleSerialNumberChange = (e) => {
+    const value = e.target.value;
+    formik.setFieldValue('serial_number', value);
+    
+    // Auto-fill if we have a value and it's not being backspaced
+    if (value && value.length > 0) {
+      const autoData = autoFillDeviceData(value, formik.values.mac_address);
+      if (autoData) {
+        // Only update vendor and OS if they're empty or if we're adding to the serial
+        if (!formik.values.vendor || !formik.values.os || value.length > formik.values.serial_number.length) {
+          formik.setFieldValue('vendor', autoData.vendor);
+          formik.setFieldValue('os', autoData.os);
+        }
+      }
     }
   };
 
-  // Handle MAC address formatting
+  // Handle MAC address formatting and auto-fill
   const handleMacAddressChange = (e) => {
     const formatted = formatMacAddress(e.target.value);
     formik.setFieldValue('mac_address', formatted);
+    
+    // Auto-fill if we have a value and it's not being backspaced
+    if (formatted && formatted.length > 0) {
+      const autoData = autoFillDeviceData(formik.values.serial_number, formatted);
+      if (autoData) {
+        // Only update vendor and OS if they're empty or if we're adding to the MAC
+        if (!formik.values.vendor || !formik.values.os || formatted.length > formik.values.mac_address.length) {
+          formik.setFieldValue('vendor', autoData.vendor);
+          formik.setFieldValue('os', autoData.os);
+        }
+      }
+    }
   };
 
   return (
@@ -182,7 +201,8 @@ function Form() {
             type="text"
             name="serial_number"
             value={formik.values.serial_number}
-            onChange={formik.handleChange}
+            onChange={handleSerialNumberChange}
+            placeholder="Enter serial number (e.g., DL123456, MBP13)"
           />
         </label>
         <label className="brand" htmlFor="vendor">
@@ -192,6 +212,10 @@ function Form() {
             name="vendor"
             value={formik.values.vendor}
             onChange={formik.handleChange}
+            placeholder="Auto-filled based on serial/MAC"
+            style={{ 
+              backgroundColor: formik.values.vendor && (formik.values.serial_number || formik.values.mac_address) ? '#e8f5e8' : 'white' 
+            }}
           />
         </label>
         <label className="os" htmlFor="os">
@@ -201,6 +225,10 @@ function Form() {
             name="os"
             value={formik.values.os}
             onChange={formik.handleChange}
+            placeholder="Auto-filled based on serial/MAC"
+            style={{ 
+              backgroundColor: formik.values.os && (formik.values.serial_number || formik.values.mac_address) ? '#e8f5e8' : 'white' 
+            }}
           />
         </label>
         <label className="device-name" htmlFor="device_name">
@@ -266,22 +294,7 @@ function Form() {
           )}
         </label>
         
-        <div style={{ textAlign: 'center', margin: '20px 0' }}>
-          <button 
-            type="button" 
-            onClick={handleAutoFill}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: '#80ecff',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              marginRight: '10px'
-            }}
-          >
-            Auto-Fill Vendor & OS
-          </button>
-        </div>
+
         
         <div className="submit">
           <button type="submit">Submit</button>
