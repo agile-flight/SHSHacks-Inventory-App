@@ -1,124 +1,284 @@
+/* Global styles */
 body {
   min-height: 100vh;
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", verdana, sans-serif;
   background-image: url("https://cdn.glitch.global/72b70080-3b25-474a-a7f1-2196a164456b/better_better.png?v=1709484390367");
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 * {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  margin: 0;
-  padding: 0;
 }
 
+/* Navbar */
 .nav-bar, .nav-bare {
   display: flex;
   align-items: center;
-  justify-content: center;
   background-color: white;
-  padding: 20px;
-  margin-bottom: 30px;
+  padding: 10px 20px;
+  margin-bottom: 20px;
 }
 
-.nav-bare img.logo {
+.nav-bar img, .nav-bare img {
   cursor: pointer;
+  width: 150px;
+  height: auto;
+  margin-right: 20px;
 }
 
-.nav-bare button {
-  margin-left: 40px;
-  margin-right: 40px;
+.inview,
+.input {
   background: none;
   border: none;
-  color: #008080;
   cursor: pointer;
   font-size: 18px;
+  text-decoration: none;
+  color: #008080;
+  margin-right: 20px;
   transition: 0.3s ease;
 }
 
-.nav-bare button:hover {
+.inview:hover,
+.input:hover {
   color: #006400;
+  text-decoration: none;
 }
 
+/* Home buttons */
 .buttons {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 150px;
-  margin: 70px 0 50px;
+  gap: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .buttons button {
-  padding: 15px;
+  padding: 15px 30px;
   border-radius: 2rem;
-  width: 50vw;
+  width: 60vw;
+  max-width: 400px;
   background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
   border-color: #002647;
-  font-size: 42px;
+  font-size: 24px;
   cursor: pointer;
-  transition: 0.5s ease;
+  transition: background-color 0.5s ease;
 }
 
-.buttons button:hover { background: white; }
+.buttons button:hover {
+  background: white;
+}
 
+/* Form styles */
 form {
   margin: 40px auto;
   padding: 30px;
-  max-width: 600px;
-  background: rgba(255,255,255,0.95);
+  max-width: 650px;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
-form h1 { text-align: center; margin-bottom: 30px; }
+form h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px;
+}
 
-label {
+.details {
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #008080;
+}
+
+.details p {
+  margin-top: 10px;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Input boxes */
+.sl,
+.sv,
+.output,
+.star,
+.en,
+.con,
+.ven,
+.brand,
+.os,
+.device-name,
+.size,
+.cpu,
+.condit,
+.location,
+.mac-address {
   display: flex;
   flex-direction: column;
   margin: 15px 0;
 }
 
-input {
-  padding: 12px;
-  border-radius: 8px;
-  border: 2px solid #e1e5e9;
-  font-size: 16px;
-  margin-top: 5px;
-  transition: all 0.3s ease;
+.sl label,
+.sv label,
+.output label,
+.star label,
+.en label,
+.con label,
+.ven label,
+.brand label,
+.os label,
+.device-name label,
+.size label,
+.cpu label,
+.condit label,
+.location label,
+.mac-address label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #333;
 }
 
-input:focus { border-color: #80ecff; box-shadow: 0 0 0 3px rgba(128,236,255,0.2); }
+.sl input,
+.sv input,
+.output input,
+.star input,
+.en input,
+.con input,
+.ven input,
+.brand input,
+.os input,
+.device-name input,
+.size input,
+.cpu input,
+.condit input,
+.location input,
+.mac-address input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: white;
+  color: #333;
+}
+
+.sl input:focus,
+.sv input:focus,
+.output input:focus,
+.star input:focus,
+.en input:focus,
+.con input:focus,
+.ven input:focus,
+.brand input:focus,
+.os input:focus,
+.device-name input:focus,
+.size input:focus,
+.cpu input:focus,
+.condit input:focus,
+.location input:focus,
+.mac-address input:focus {
+  outline: none;
+  border-color: #80ecff;
+  box-shadow: 0 0 0 3px rgba(128, 236, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Submit button */
+.submit {
+  margin-top: 30px;
+  text-align: center;
+}
 
 .submit button {
   padding: 10px 20px;
   border-radius: 2rem;
   background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
   border-color: #002647;
+  font-size: 16px;
   cursor: pointer;
   transition: 0.3s ease;
 }
 
-.submit button:hover { background: white; }
+.submit button:hover {
+  background: white;
+}
 
-.details { margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.8); border-radius: 10px; }
+/* Table action buttons */
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: flex-start;
+}
 
-.error-text { color: red; font-size: 12px; margin-top: 5px; }
-
-.table-page { padding: 20px; }
-
-.table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-
-.download-btn { padding: 6px 15px; border-radius: 5px; background-color: #008080; color: white; border: none; cursor: pointer; font-size: 14px; }
-
-.action-buttons { display: flex; gap: 10px; }
-
-.table-btn { padding: 6px 12px; border-radius: 5px; border: none; cursor: pointer; text-decoration: none; color: white; background-color: #008080; transition: 0.3s; }
+.table-btn {
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  background-color: #008080;
+  transition: 0.3s;
+  white-space: nowrap;
+}
 
 .table-btn:hover { background-color: #006666; }
 
-.table-btn.delete { background-color: #FF4C4C; }
+.table-btn.delete {
+  background-color: #FF4C4C;
+}
 
 .table-btn.delete:hover { background-color: #cc0000; }
+
+/* Item view */
+.item-details {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 25px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.item-details h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.item-details p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.item-details button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  border-radius: 2rem;
+  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
+  border-color: #002647;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.item-details button:hover { background: white; }
 
 .qr-code { text-align: center; margin-top: 20px; }
