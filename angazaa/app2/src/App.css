@@ -4,17 +4,24 @@ body {
   margin: 0;
   font-family: "Poppins", verdana, sans-serif;
   background-image: url("https://cdn.glitch.global/72b70080-3b25-474a-a7f1-2196a164456b/better_better.png?v=1709484390367");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .poppins-regular {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
-*{
-  font-family: "Poppins", sans-serif; 
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-/* Navigation bar styles */
-.nav-bar {  
+
+/* Navigation bar */
+.nav-bar, .nav-bare {  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,196 +30,115 @@ body {
   width: 100%;
   margin-bottom: 30px;
 }
+.nav-bare {
+  justify-content: space-between;
+}
+.nav-buttons {
+  display: flex;
+  gap: 15px;
+}
 
-/* Button container styles */
+/* Navbar buttons */
+.inview, .input {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  text-decoration: none;
+  color: #008080;
+  transition: 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+.inview:hover, .input:hover {
+  background-color: #e0f7f7;
+  color: #006400;
+}
+
+/* Navbar logo */
+.logo {
+  height: 50px;
+  cursor: pointer;
+  object-fit: contain;
+}
+
+/* Home page */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.home-banner img {
+  width: 80%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 15px;
+  margin-bottom: 50px;
+}
+
+/* Buttons container */
 .buttons {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center; 
-  gap: 150px;
-  margin-top: 70px;
+  gap: 30px;
+  margin-top: 50px;
   margin-bottom: 50px;
 }
-
-/* Button styles */
 .buttons button {
-  padding: 10px;
+  padding: 15px;
   border-radius: 2rem;
   width: 50vw;
+  max-width: 400px;
   background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
   border-color: #002647;
-  font-size: 42px;
-  transition: background-color .75s ease-in;
-  margin: 10px 0;
+  font-size: 24px;
+  font-weight: 600;
+  transition: background-color 0.5s ease-in;
 }
- 
 .buttons button:hover {
-  background-position: right center;
   background: white;
 }
 
-/* Font styles */
-.libre-baskerville-regular {
-  font-family: "Libre Baskerville", serif;
-  font-weight: 400;
-  font-style: normal;
+/* Form styling */
+form {
+  margin: 40px auto;
+  padding: 30px;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+form h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px;
 }
 
-/* Parent container styles */
-.parent {
+/* Input groups */
+.sl, .sv, .output, .star, .en, .con, .ven, .brand, .os,
+.device-name, .size, .cpu, .condit, .location, .mac-address {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-/* Reset styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Navigation bar container styles */
-.nav-bare  { 
-  display: flex;
-  align-items: center;
-  background-color: white;
-  padding: 10px;
-  margin-bottom: 20px;
-}
-
-/* Navigation button styles */
-.inview,
-.input {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-  text-decoration: none;
-  color: #008080;
-  transition: 0.5s ease;
-}
-
-.inview {
-    margin-left: 50px; /* Adjust this value to your desired size */
-    margin-right: 50px;
-}
-
-.input {
-  margin-left: 50px;
-  margin-right: 50px;
-  color: rgb(0, 151, 185);
-}
-
-.inview:hover,
-.input:hover {
-  text-decoration: none;
-  color: #006400;
-}
-
-/* Form container styles */
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-}
-
-/* Form input styles */
-.form-input {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-
-.form-input label {
-  margin-bottom: 5px;
-}
-
-/* Submit button styles */
-.submit-button {
-  margin-top: 20px;
-  align-self: center;
-}
-
-.submit-button button {
-  padding: 10px 20px;
-  border-radius: 2rem;
-  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
-  border-color: #002647;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.75s ease-in;
-}
-
-.submit-button button:hover {
-  background-position: right center;
-  background: white;
-}
-
-/* Form input styles - IMPROVED TEXTBOXES */
-.sl,
-.sv,
-.output,
-.star,
-.en,
-.con,
-.ven,
-.brand,
-.os,
-.device-name,
-.size,
-.cpu,
-.condit,
-.location,
-.mac-address {
-  display: flex;
-  flex-direction: column;
-  margin: 20px 0;
+  margin: 15px 0;
   padding: 15px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-
-.sl label,
-.sv label,
-.output label,
-.star label,
-.en label,
-.con label,
-.ven label,
-.brand label,
-.os label,
-.device-name label,
-.size label,
-.cpu label,
-.condit label,
-.location label,
-.mac-address label {
-  margin-bottom: 10px;
+.sl label, .sv label, .output label, .star label, .en label, .con label,
+.ven label, .brand label, .os label, .device-name label, .size label,
+.cpu label, .condit label, .location label, .mac-address label {
+  margin-bottom: 8px;
   font-weight: 600;
   color: #333;
   font-size: 14px;
 }
-
-/* IMPROVED INPUT STYLING */
-.sl input,
-.sv input,
-.output input,
-.star input,
-.en input,
-.con input,
-.ven input,
-.brand input,
-.os input,
-.device-name input,
-.size input,
-.cpu input,
-.condit input,
-.location input,
-.mac-address input {
+.sl input, .sv input, .output input, .star input, .en input, .con input,
+.ven input, .brand input, .os input, .device-name input, .size input,
+.cpu input, .condit input, .location input, .mac-address input {
   width: 100%;
   padding: 12px 15px;
   border: 2px solid #e1e5e9;
@@ -221,93 +147,110 @@ body {
   transition: all 0.3s ease;
   background: white;
   color: #333;
-  font-family: "Poppins", sans-serif;
   margin-top: 5px;
 }
-
-.sl input:focus,
-.sv input:focus,
-.output input:focus,
-.star input:focus,
-.en input:focus,
-.con input:focus,
-.ven input:focus,
-.brand input:focus,
-.os input:focus,
-.device-name input:focus,
-.size input:focus,
-.cpu input:focus,
-.condit input:focus,
-.location input:focus,
-.mac-address input:focus {
+.sl input:focus, .sv input:focus, .output input:focus, .star input:focus,
+.en input:focus, .con input:focus, .ven input:focus, .brand input:focus,
+.os input:focus, .device-name input:focus, .size input:focus, .cpu input:focus,
+.condit input:focus, .location input:focus, .mac-address input:focus {
   outline: none;
   border-color: #80ecff;
-  box-shadow: 0 0 0 3px rgba(128, 236, 255, 0.2);
-  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(128,236,255,0.2);
 }
 
-/* Submit button styles */
-.submit {
-  margin-top: 30px;
-  margin-bottom: 20px;
-  align-self: center;
+/* Submit buttons */
+.submit, .submit-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
-
-.submit button {
+.submit button, .submit-button button {
   padding: 10px 20px;
   border-radius: 2rem;
   background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
   border-color: #002647;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.75s ease-in;
+  transition: background-color 0.5s ease-in;
 }
-
-.submit button:hover {
-  background-position: right center;
+.submit button:hover, .submit-button button:hover {
   background: white;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-/* Form wrapper */
-form {
-  margin: 40px auto;
-  padding: 30px;
-  max-width: 600px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-form h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-  font-size: 24px;
 }
 
 /* Details section */
 .details {
   margin: 20px 0;
   padding: 15px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255,255,255,0.8);
   border-radius: 10px;
 }
-
 .details summary {
   cursor: pointer;
   font-weight: 600;
   color: #008080;
-  margin-bottom: 10px;
 }
-
 .details p {
   margin-top: 10px;
   line-height: 1.6;
   color: #555;
+}
+
+/* Inventory table action buttons */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+.action-buttons a, .action-buttons button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid #008080;
+  background: #f0ffff;
+  color: #008080;
+}
+.action-buttons a:hover, .action-buttons button:hover {
+  background: #80ecff;
+  color: white;
+}
+
+/* Item Details / QR */
+.item-details {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+.item-details h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.item-details .qr-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Data table container */
+.data-table-container {
+  margin: 20px auto;
+  max-width: 95%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .buttons button {
+    width: 80%;
+    font-size: 20px;
+  }
+  .inview, .input {
+    font-size: 16px;
+    margin: 0 5px;
+  }
+  .home-banner img {
+    width: 95%;
+  }
 }
