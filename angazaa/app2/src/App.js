@@ -207,9 +207,20 @@ function Navbar() {
   const navigate = useNavigate();
   return (
     <nav className="nav-bare">
-      <img className="logo" src="https://cdn.glitch.global/89e6cfdf-775c-47cf-a856-87ee59789939/ballsss.png?v=1709439463539" alt="Logo" onClick={() => navigate("/")} />
-      <button className="inview" onClick={() => navigate("/inven-view")}>View Inventory</button>
-      <button className="input" onClick={() => navigate("/inven-input")}>Add device</button>
+      <img
+        className="logo"
+        src="https://cdn.glitch.global/89e6cfdf-775c-47cf-a856-87ee59789939/ballsss.png?v=1709439463539"
+        alt="Logo"
+        onClick={() => navigate("/")}
+      />
+      <div className="nav-buttons">
+        <button className="inview" onClick={() => navigate("/inven-view")}>
+          View Inventory
+        </button>
+        <button className="input" onClick={() => navigate("/inven-input")}>
+          Add Device
+        </button>
+      </div>
     </nav>
   );
 }
@@ -217,17 +228,21 @@ function Navbar() {
 function Home() {
   const navigate = useNavigate();
   return (
-    <div>
-      <div className="nav-bar">
-        <img src="https://cdn.glitch.global/69973fd0-2612-442a-86f4-4900da5d229f/IMG_0522.jpeg?v=1709446089891" alt="Home" width="500" height="150" />
+    <div className="home-container">
+      <div className="home-banner">
+        <img
+          src="https://cdn.glitch.global/69973fd0-2612-442a-86f4-4900da5d229f/IMG_0522.jpeg?v=1709446089891"
+          alt="Home Banner"
+        />
       </div>
       <div className="buttons">
-        <button onClick={() => navigate("/inven-input")}>Add device</button>
+        <button onClick={() => navigate("/inven-input")}>Add Device</button>
         <button onClick={() => navigate("/inven-view")}>View Inventory</button>
       </div>
     </div>
   );
 }
+
 
 function ItemDetails() {
   const { id } = useParams();
