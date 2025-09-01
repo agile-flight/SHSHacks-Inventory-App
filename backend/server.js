@@ -33,6 +33,7 @@ if (process.env.DATABASE_URL) {
             cpu VARCHAR(50),
             condit VARCHAR(20), 
             location VARCHAR(100),
+            mac_address VARCHAR(17),
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     `;
@@ -71,7 +72,8 @@ if (process.env.DATABASE_URL) {
             size VARCHAR(20),
             cpu VARCHAR(50),
             condit VARCHAR(20), 
-            location VARCHAR(100)
+            location VARCHAR(100),
+            mac_address VARCHAR(17)
         )`, (err) => {
             if (err) {
                 console.error('Error creating devices table:', err.message);
@@ -135,9 +137,9 @@ app.get('/devices/:id', async (req, res) => {
 
 app.post('/devices', async (req, res) => {
     try {
-        const { serial_number, os, vendor, device_name, size, cpu, condit, location } = req.body;
-        const sql = "INSERT INTO devices (serial_number, os, vendor, device_name, size, cpu, condit, location) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *";
-        const result = await query(sql, [serial_number, os, vendor, device_name, size, cpu, condit, location]);
+        const { serial_number, os, vendor, device_name, size, cpu, condit, location, mac_address } = req.body;
+        const sql = "INSERT INTO devices (serial_number, os, vendor, device_name, size, cpu, condit, location, mac_address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *";
+        const result = await query(sql, [serial_number, os, vendor, device_name, size, cpu, condit, location, mac_address]);
         return res.json({ success: true, message: 'Device added successfully', device: pgPool ? result.rows[0] : result });
     } catch (err) {
         console.error('Error inserting into devices:', err.message);

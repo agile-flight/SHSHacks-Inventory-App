@@ -3,6 +3,7 @@ import { Routes, Route, useParams, Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import QRCode from "react-qr-code";
 import DataTable from "react-data-table-component";
+import { autoFillDeviceData, validateMacAddress, formatMacAddress } from './deviceDatabase';
 import './App.css';
 
 // Fallback BASE_URL if config fails
@@ -62,6 +63,10 @@ function Table() {
       selector: row => row.serial_number
     },
     {
+      name: "MAC Address",
+      selector: row => row.mac_address || "N/A"
+    },
+    {
       name: "OS",
       selector: row => row.os
     },
@@ -70,7 +75,7 @@ function Table() {
       selector: row => row.vendor
     },
     {
-      name: "Devic Name",
+      name: "Device Name",
       selector: row => row.device_name
     },
     {
@@ -121,6 +126,7 @@ function Form() {
       cpu: "",
       condit: "",
       location: "",
+      mac_address: "",
     },
     onSubmit: async (values) => {
       try {
@@ -141,6 +147,23 @@ function Form() {
       }
     },
   });
+
+  // Auto-fill function
+  const handleAutoFill = () => {
+    const autoData = autoFillDeviceData(formik.values.serial_number, formik.values.mac_address);
+    if (autoData) {
+      formik.setValues({
+        ...formik.values,
+        ...autoData
+      });
+    }
+  };
+
+  // Handle MAC address formatting
+  const handleMacAddressChange = (e) => {
+    const formatted = formatMacAddress(e.target.value);
+    formik.setFieldValue('mac_address', formatted);
+  };
 
   return (
     <div>
@@ -225,6 +248,41 @@ function Form() {
             onChange={formik.handleChange}
           />
         </label>
+        <label className="mac-address" htmlFor="mac_address">
+          MAC Address:
+          <input
+            type="text"
+            name="mac_address"
+            value={formik.values.mac_address}
+            onChange={handleMacAddressChange}
+            placeholder="00:11:22:33:44:55"
+            pattern="^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"
+            title="Please enter a valid MAC address (e.g., 00:11:22:33:44:55)"
+          />
+          {formik.values.mac_address && !validateMacAddress(formik.values.mac_address) && (
+            <div style={{ color: 'red', fontSize: '12px', marginTop: '5px' }}>
+              Please enter a valid MAC address format (e.g., 00:11:22:33:44:55)
+            </div>
+          )}
+        </label>
+        
+        <div style={{ textAlign: 'center', margin: '20px 0' }}>
+          <button 
+            type="button" 
+            onClick={handleAutoFill}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#80ecff',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              marginRight: '10px'
+            }}
+          >
+            Auto-Fill Vendor & OS
+          </button>
+        </div>
+        
         <div className="submit">
           <button type="submit">Submit</button>
         </div>
@@ -266,8 +324,6 @@ function Navbar() {
 function Home() {
   let navigate = useNavigate();
 
-  console.log('Home component rendering');
-
   const changePageA = () => {
     navigate("/inven-input");
   }
@@ -277,8 +333,7 @@ function Home() {
   }
 
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1 style={{ color: 'white', marginBottom: '30px' }}>Angaaza Inventory System</h1>
+    <div>
       <div className="nav-bar">
         <img src="https://cdn.glitch.global/69973fd0-2612-442a-86f4-4900da5d229f/IMG_0522.jpeg?v=1709446089891" alt="W" width="500" height="150"/>
       </div>
@@ -286,7 +341,6 @@ function Home() {
         <button onClick={changePageA}>Add device</button>
         <button onClick={changePageB}>View Inventory</button>
       </div>
-      <p style={{ color: 'white', marginTop: '20px' }}>Welcome to the Inventory Management System</p>
     </div>
   );
 }
@@ -333,6 +387,7 @@ function ItemDetails() {
     <div className="item-details">
       <h2>Item Details</h2>
       <p><strong>Serial Number:</strong> {rowData.serial_number}</p>
+      <p><strong>MAC Address:</strong> {rowData.mac_address || "N/A"}</p>
       <p><strong>OS:</strong> {rowData.os}</p>
       <p><strong>Vendor:</strong> {rowData.vendor}</p>
       <p><strong>Device Name:</strong> {rowData.device_name}</p>
