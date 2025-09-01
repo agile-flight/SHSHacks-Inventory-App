@@ -6,55 +6,87 @@ import DataTable from "react-data-table-component";
 import { autoFillDeviceData, validateMacAddress, formatMacAddress } from './deviceDatabase';
 import './App.css';
 
+// Fallback BASE_URL if config fails
 const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5050";
 
-// Tutorial component
 function Tutorial() {
   return (
     <p>
-      Windows: <b>wmic bios get serialnumber</b> | MacOS: Apple menu &gt; About This Mac | ChromeOS: ALT+V on Sign-In
+      If the device is operating on Windows, open cmd and type <b>wmic bios get serialnumber</b>.
+      On MacOS, go to the Apple menu &gt; About This Mac.
+      On ChromeOS, press ALT + V on the Sign-In screen.
     </p>
   );
 }
 
-// Navbar
-function Navbar() {
-  const navigate = useNavigate();
-  return (
-    <nav className="nav-bar">
-      <img
-        src="https://cdn.glitch.global/89e6cfdf-775c-47cf-a856-87ee59789939/ballsss.png?v=1709439463539"
-        alt="Logo"
-        className="logo"
-        onClick={() => navigate("/")}
-      />
-      <div className="nav-buttons">
-        <button onClick={() => navigate("/inven-view")}>View Inventory</button>
-        <button onClick={() => navigate("/inven-input")}>Add Device</button>
-      </div>
-    </nav>
-  );
-}
+function Table() {
+  const [devices, setDevices] = useState([]);
 
-// Home Page
-function Home() {
-  const navigate = useNavigate();
+  useEffect(() => {
+    fetchDevices();
+  }, []);
+
+  const fetchDevices = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/devices`);
+      if (response.ok) {
+        const data = await response.json();
+        setDevices(data);
+      } else {
+        console.error('Error fetching devices:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching devices:', error.message);
+    }
+  };
+
+  const deleteDevice = async (id) => {
+    try {
+      const response = await fetch(`${BASE_URL}/devices/${id}`, { method: 'DELETE' });
+      if (response.ok) fetchDevices();
+      else console.error('Error deleting device:', response.statusText);
+    } catch (error) {
+      console.error('Error deleting device:', error.message);
+    }
+  };
+
+  const columns = [
+    { name: "Serial Number", selector: row => row.serial_number },
+    { name: "MAC Address", selector: row => row.mac_address || "N/A" },
+    { name: "OS", selector: row => row.os },
+    { name: "Vendor", selector: row => row.vendor },
+    { name: "Device Name", selector: row => row.device_name },
+    { name: "Size", selector: row => row.size },
+    { name: "CPU", selector: row => row.cpu },
+    { name: "Condition", selector: row => row.condit },
+    { name: "Location", selector: row => row.location },
+    {
+      name: "Actions",
+      cell: row => (
+        <div className="action-buttons">
+          <Link to={`/item/${row.id}`}>View</Link>
+          <button onClick={() => deleteDevice(row.id)}>Delete</button>
+        </div>
+      )
+    },
+  ];
+
   return (
-    <div className="container">
-      <img
-        src="https://cdn.glitch.global/69973fd0-2612-442a-86f4-4900da5d229f/IMG_0522.jpeg?v=1709446089891"
-        alt="Logo"
-        className="home-banner"
-      />
-      <div className="home-buttons">
-        <button onClick={() => navigate("/inven-input")}>Add Device</button>
-        <button onClick={() => navigate("/inven-view")}>View Inventory</button>
+    <div>
+      <Navbar />
+      <div className="data-table-container">
+        <DataTable
+          columns={columns}
+          data={devices}
+          fixedHeader
+          pagination
+          highlightOnHover
+        />
       </div>
     </div>
   );
 }
 
-// Form Page
 function Form() {
   const navigate = useNavigate();
 
@@ -78,185 +110,161 @@ function Form() {
           body: JSON.stringify(values),
         });
         if (response.ok) navigate("/inven-view");
-      } catch (e) { console.error(e); }
+        else console.error('Error adding device:', response.statusText);
+      } catch (error) {
+        console.error('Error adding device:', error.message);
+      }
     },
   });
 
-  const handleSerialChange = e => {
-    const val = e.target.value;
-    formik.setFieldValue('serial_number', val);
-    if (val) {
-      const auto = autoFillDeviceData(val, formik.values.mac_address);
-      if (auto) {
-        if (!formik.values.vendor || !formik.values.os || val.length > formik.values.serial_number.length) {
-          formik.setFieldValue('vendor', auto.vendor);
-          formik.setFieldValue('os', auto.os);
+  const handleSerialNumberChange = (e) => {
+    const value = e.target.value;
+    formik.setFieldValue('serial_number', value);
+    if (value) {
+      const autoData = autoFillDeviceData(value, formik.values.mac_address);
+      if (autoData) {
+        if (!formik.values.vendor || !formik.values.os || value.length > formik.values.serial_number.length) {
+          formik.setFieldValue('vendor', autoData.vendor);
+          formik.setFieldValue('os', autoData.os);
         }
       }
     }
   };
 
-  const handleMacChange = e => {
-    const val = formatMacAddress(e.target.value);
-    formik.setFieldValue('mac_address', val);
-    if (val) {
-      const auto = autoFillDeviceData(formik.values.serial_number, val);
-      if (auto) {
-        if (!formik.values.vendor || !formik.values.os || val.length > formik.values.mac_address.length) {
-          formik.setFieldValue('vendor', auto.vendor);
-          formik.setFieldValue('os', auto.os);
+  const handleMacAddressChange = (e) => {
+    const formatted = formatMacAddress(e.target.value);
+    formik.setFieldValue('mac_address', formatted);
+    if (formatted) {
+      const autoData = autoFillDeviceData(formik.values.serial_number, formatted);
+      if (autoData) {
+        if (!formik.values.vendor || !formik.values.os || formatted.length > formik.values.mac_address.length) {
+          formik.setFieldValue('vendor', autoData.vendor);
+          formik.setFieldValue('os', autoData.os);
         }
       }
     }
   };
 
   return (
-    <div className="container">
+    <div>
       <Navbar />
-      <form className="form-container" onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         <h1>Inventory Input Form</h1>
-        <details className="tutorial">
-          <summary>How to find serial code?</summary>
-          <Tutorial />
-        </details>
-
-        {/** Inputs */}
-        <label>Serial Number:
-          <input type="text" name="serial_number" value={formik.values.serial_number} onChange={handleSerialChange} placeholder="DL123456, MBP13"/>
+        <div className="details">
+          <details>
+            <summary>How to find serial code?</summary>
+            <Tutorial />
+          </details>
+        </div>
+        <label className="sv">
+          Serial Number:
+          <input type="text" name="serial_number" value={formik.values.serial_number} onChange={handleSerialNumberChange} placeholder="e.g., DL123456" />
         </label>
-
-        <label>Vendor:
-          <input type="text" name="vendor" value={formik.values.vendor} onChange={formik.handleChange} placeholder="Auto-filled" style={{backgroundColor: formik.values.vendor ? '#e8f5e8' : 'white'}}/>
+        <label className="brand">
+          Vendor:
+          <input type="text" name="vendor" value={formik.values.vendor} onChange={formik.handleChange} placeholder="Auto-filled" />
         </label>
-
-        <label>OS:
-          <input type="text" name="os" value={formik.values.os} onChange={formik.handleChange} placeholder="Auto-filled" style={{backgroundColor: formik.values.os ? '#e8f5e8' : 'white'}}/>
+        <label className="os">
+          OS:
+          <input type="text" name="os" value={formik.values.os} onChange={formik.handleChange} placeholder="Auto-filled" />
         </label>
-
-        <label>Device Name:<input type="text" name="device_name" value={formik.values.device_name} onChange={formik.handleChange}/></label>
-        <label>Size:<input type="text" name="size" value={formik.values.size} onChange={formik.handleChange}/></label>
-        <label>CPU:<input type="text" name="cpu" value={formik.values.cpu} onChange={formik.handleChange}/></label>
-        <label>Condition:<input type="text" name="condit" value={formik.values.condit} onChange={formik.handleChange}/></label>
-        <label>Location:<input type="text" name="location" value={formik.values.location} onChange={formik.handleChange}/></label>
-        <label>MAC Address:
-          <input type="text" name="mac_address" value={formik.values.mac_address} onChange={handleMacChange} placeholder="00:11:22:33:44:55" pattern="^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"/>
-          {formik.values.mac_address && !validateMacAddress(formik.values.mac_address) &&
-            <div className="error-msg">Invalid MAC format</div>}
+        <label className="device-name">
+          Device Name:
+          <input type="text" name="device_name" value={formik.values.device_name} onChange={formik.handleChange} />
         </label>
-
-        <button type="submit" className="submit-button">Submit</button>
+        <label className="size">
+          Size:
+          <input type="text" name="size" value={formik.values.size} onChange={formik.handleChange} />
+        </label>
+        <label className="cpu">
+          CPU:
+          <input type="text" name="cpu" value={formik.values.cpu} onChange={formik.handleChange} />
+        </label>
+        <label className="condit">
+          Condition:
+          <input type="text" name="condit" value={formik.values.condit} onChange={formik.handleChange} />
+        </label>
+        <label className="location">
+          Location:
+          <input type="text" name="location" value={formik.values.location} onChange={formik.handleChange} />
+        </label>
+        <label className="mac-address">
+          MAC Address:
+          <input type="text" name="mac_address" value={formik.values.mac_address} onChange={handleMacAddressChange} placeholder="00:11:22:33:44:55" pattern="^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$" title="Valid MAC address" />
+          {formik.values.mac_address && !validateMacAddress(formik.values.mac_address) && (
+            <div className="error-msg">Please enter a valid MAC address.</div>
+          )}
+        </label>
+        <div className="submit">
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   );
 }
 
-// Table Page
-function Table() {
-  const [devices, setDevices] = useState([]);
-
-  const fetchDevices = async () => {
-    try {
-      const res = await fetch(`${BASE_URL}/devices`);
-      if (res.ok) setDevices(await res.json());
-    } catch (e) { console.error(e); }
-  };
-
-  useEffect(() => { fetchDevices(); }, []);
-
-  const deleteDevice = async id => {
-    try {
-      const res = await fetch(`${BASE_URL}/devices/${id}`, {method:'DELETE'});
-      if(res.ok) fetchDevices();
-    } catch(e){console.error(e);}
-  };
-
-  const downloadTableCSV = () => {
-    if(devices.length === 0) return;
-    const headers = Object.keys(devices[0]);
-    const csv = [headers.join(',')].concat(devices.map(d=>headers.map(h=>`"${d[h]}"`).join(','))).join('\n');
-    const blob = new Blob([csv], {type:'text/csv'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href=url; a.download='inventory.csv'; a.click();
-  };
-
-  const columns = [
-    {name:'Serial', selector: r=>r.serial_number},
-    {name:'MAC', selector:r=>r.mac_address || 'N/A'},
-    {name:'OS', selector:r=>r.os},
-    {name:'Vendor', selector:r=>r.vendor},
-    {name:'Device', selector:r=>r.device_name},
-    {name:'Size', selector:r=>r.size},
-    {name:'CPU', selector:r=>r.cpu},
-    {name:'Condition', selector:r=>r.condit},
-    {name:'Location', selector:r=>r.location},
-    {
-      name:'Actions', cell: row => (
-        <div className="action-buttons">
-          <Link to={`/item/${row.id}`} className="action-view">View</Link>
-          <button onClick={()=>deleteDevice(row.id)} className="action-delete">Delete</button>
-        </div>
-      )
-    }
-  ];
-
+function Navbar() {
+  const navigate = useNavigate();
   return (
-    <div className="container">
-      <Navbar />
-      <div className="table-header">
-        <h2>Inventory</h2>
-        <button className="download-btn" onClick={downloadTableCSV}>Download Full CSV</button>
+    <nav className="nav-bare">
+      <img className="logo" src="https://cdn.glitch.global/89e6cfdf-775c-47cf-a856-87ee59789939/ballsss.png?v=1709439463539" alt="Logo" onClick={() => navigate("/")} />
+      <button className="inview" onClick={() => navigate("/inven-view")}>View Inventory</button>
+      <button className="input" onClick={() => navigate("/inven-input")}>Add device</button>
+    </nav>
+  );
+}
+
+function Home() {
+  const navigate = useNavigate();
+  return (
+    <div>
+      <div className="nav-bar">
+        <img src="https://cdn.glitch.global/69973fd0-2612-442a-86f4-4900da5d229f/IMG_0522.jpeg?v=1709446089891" alt="Home" width="500" height="150" />
       </div>
-      <DataTable columns={columns} data={devices} fixedHeader pagination highlightOnHover/>
+      <div className="buttons">
+        <button onClick={() => navigate("/inven-input")}>Add device</button>
+        <button onClick={() => navigate("/inven-view")}>View Inventory</button>
+      </div>
     </div>
   );
 }
 
-// Item Details Page
 function ItemDetails() {
   const { id } = useParams();
-  const [data, setData] = useState({});
+  const [rowData, setRowData] = useState({});
 
-  useEffect(()=>{
-    const fetchData = async()=>{
-      try{
-        const res = await fetch(`${BASE_URL}/devices/${id}`);
-        if(res.ok) setData(await res.json());
-      }catch(e){console.error(e);}
+  useEffect(() => {
+    const fetchDeviceDetails = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/devices/${id}`);
+        if (response.ok) setRowData(await response.json());
+      } catch (error) {
+        console.error('Error fetching device details:', error.message);
+      }
     };
-    fetchData();
+    fetchDeviceDetails();
   }, [id]);
 
   const downloadCSV = () => {
-    const headers = Object.keys(data);
-    const csv = headers.map(h=>`"${h}"`).join(',') + '\n' + headers.map(h=>`"${data[h]}"`).join(',');
-    const blob = new Blob([csv], {type:'text/csv'});
+    const csv = Object.values(rowData).map(val => `"${val}"`).join(',');
+    const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href=url; a.download='item.csv'; a.click();
-  };
+    const a = document.createElement('a');
+    a.href = url;
+    a.setAttribute('download', 'device_details.csv');
+    a.click();
+  }
 
   return (
-    <div className="container">
-      <Navbar />
-      <div className="item-card">
-        <h2>Item Details</h2>
-        {Object.entries(data).map(([key,val])=>
-         <p key={key}><strong>{key.replace('_', ' ')}:</strong> {val || 'N/A'}</p>
-        )}
-        <div className="item-actions">
-          <button onClick={downloadCSV}>Download CSV</button>
-        </div>
-        {id && (
-          <div className="qr-code">
-            <p><strong>Share via QR Code</strong></p>
-            <QRCode value={`http://localhost:3000/item/${id}`} />
-          </div>
-        )}
-      </div>
+    <div className="item-details">
+      <h2>Item Details</h2>
+      {Object.entries(rowData).map(([key, value]) => <p key={key}><strong>{key.replace('_',' ')}:</strong> {value || "N/A"}</p>)}
+      <button onClick={downloadCSV}>Download CSV</button>
+      {id && <div className="qr-container"><QRCode value={`http://localhost:3000/item/${id}`} /></div>}
     </div>
   );
 }
 
-// Main App
 function App() {
   return (
     <div className="App">
