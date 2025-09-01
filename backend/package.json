@@ -4,7 +4,7 @@
   "description": "Backend server for Angaaza Inventory Management System",
   "main": "server.js",
   "engines": {
-    "node": ">=14.0.0"
+    "node": "18.x"
   },
   "scripts": {
     "start": "node server.js",

@@ -1,0 +1,23 @@
+{
+  "name": "angaaza-inventory-backend",
+  "description": "Backend API for Angaaza Inventory Management System",
+  "repository": "https://github.com/agile-flight/SHSHacks-Inventory-App",
+  "logo": "https://cdn.glitch.global/89e6cfdf-775c-47cf-a856-87ee59789939/ballsss.png?v=1709439463539",
+  "keywords": ["node", "express", "inventory", "management"],
+  "env": {
+    "NODE_ENV": {
+      "description": "Environment setting",
+      "value": "production"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
