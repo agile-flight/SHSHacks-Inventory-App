@@ -1,313 +1,117 @@
-/* Global styles */
+/* Global Styles */
 body {
-  min-height: 100vh;
   margin: 0;
-  font-family: "Poppins", verdana, sans-serif;
-  background-image: url("https://cdn.glitch.global/72b70080-3b25-474a-a7f1-2196a164456b/better_better.png?v=1709484390367");
-}
-.poppins-regular {
+  min-height: 100vh;
   font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+  background-image: url("https://cdn.glitch.global/72b70080-3b25-474a-a7f1-2196a164456b/better_better.png?v=1709484390367");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
-*{
-  font-family: "Poppins", sans-serif; 
-}
-/* Navigation bar styles */
-.nav-bar {  
+
+/* Navbar */
+.nav-bar, .nav-bare {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
-  padding: 20px;
-  width: 100%;
-  margin-bottom: 30px;
+  padding: 10px 20px;
+  background: white;
+  margin-bottom: 20px;
 }
+.nav-bare img.logo {
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+}
+.inview, .input {
+  margin-left: 30px;
+  margin-right: 30px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #008080;
+}
+.inview:hover, .input:hover { color: #006400; }
 
-/* Button container styles */
+/* Home Buttons */
 .buttons {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center; 
-  gap: 150px;
+  align-items: center;
+  gap: 50px;
   margin-top: 70px;
   margin-bottom: 50px;
 }
-
-/* Button styles */
 .buttons button {
-  padding: 10px;
-  border-radius: 2rem;
   width: 50vw;
-  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
-  border-color: #002647;
-  font-size: 42px;
-  transition: background-color .75s ease-in;
-  margin: 10px 0;
-}
- 
-.buttons button:hover {
-  background-position: right center;
-  background: white;
-}
-
-/* Font styles */
-.libre-baskerville-regular {
-  font-family: "Libre Baskerville", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-/* Parent container styles */
-.parent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Reset styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Navigation bar container styles */
-.nav-bare  { 
-  display: flex;
-  align-items: center;
-  background-color: white;
-  padding: 10px;
-  margin-bottom: 20px;
-}
-
-/* Navigation button styles */
-.inview,
-.input {
-  background: none;
-  border: none;
+  padding: 20px;
+  border-radius: 30px;
+  font-size: 36px;
+  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%);
+  border: 2px solid #002647;
   cursor: pointer;
-  font-size: 20px;
-  text-decoration: none;
-  color: #008080;
-  transition: 0.5s ease;
 }
+.buttons button:hover { background: white; }
 
-.inview {
-    margin-left: 50px; /* Adjust this value to your desired size */
-    margin-right: 50px;
+/* Form Styles */
+form {
+  margin: 40px auto;
+  max-width: 700px;
+  padding: 30px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
-
-.input {
-  margin-left: 50px;
-  margin-right: 50px;
-  color: rgb(0, 151, 185);
-}
-
-.inview:hover,
-.input:hover {
-  text-decoration: none;
-  color: #006400;
-}
-
-/* Form container styles */
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-}
-
-/* Form input styles */
-.form-input {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-
-.form-input label {
-  margin-bottom: 5px;
-}
-
-/* Submit button styles */
-.submit-button {
-  margin-top: 20px;
-  align-self: center;
-}
-
-.submit-button button {
-  padding: 10px 20px;
-  border-radius: 2rem;
-  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
-  border-color: #002647;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.75s ease-in;
-}
-
-.submit-button button:hover {
-  background-position: right center;
-  background: white;
-}
-
-/* Form input styles - IMPROVED TEXTBOXES */
-.sl,
-.sv,
-.output,
-.star,
-.en,
-.con,
-.ven,
-.brand,
-.os,
-.device-name,
-.size,
-.cpu,
-.condit,
-.location,
-.mac-address {
-  display: flex;
-  flex-direction: column;
-  margin: 20px 0;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.sl label,
-.sv label,
-.output label,
-.star label,
-.en label,
-.con label,
-.ven label,
-.brand label,
-.os label,
-.device-name label,
-.size label,
-.cpu label,
-.condit label,
-.location label,
-.mac-address label {
-  margin-bottom: 10px;
-  font-weight: 600;
-  color: #333;
-  font-size: 14px;
-}
-
-/* IMPROVED INPUT STYLING */
-.sl input,
-.sv input,
-.output input,
-.star input,
-.en input,
-.con input,
-.ven input,
-.brand input,
-.os input,
-.device-name input,
-.size input,
-.cpu input,
-.condit input,
-.location input,
-.mac-address input {
-  width: 100%;
+form h1 { text-align: center; margin-bottom: 30px; }
+label { display: flex; flex-direction: column; margin: 15px 0; }
+input {
   padding: 12px 15px;
   border: 2px solid #e1e5e9;
   border-radius: 8px;
   font-size: 16px;
-  transition: all 0.3s ease;
-  background: white;
-  color: #333;
-  font-family: "Poppins", sans-serif;
-  margin-top: 5px;
 }
-
-.sl input:focus,
-.sv input:focus,
-.output input:focus,
-.star input:focus,
-.en input:focus,
-.con input:focus,
-.ven input:focus,
-.brand input:focus,
-.os input:focus,
-.device-name input:focus,
-.size input:focus,
-.cpu input:focus,
-.condit input:focus,
-.location input:focus,
-.mac-address input:focus {
-  outline: none;
-  border-color: #80ecff;
-  box-shadow: 0 0 0 3px rgba(128, 236, 255, 0.2);
-  transform: translateY(-1px);
-}
-
-/* Submit button styles */
-.submit {
-  margin-top: 30px;
-  margin-bottom: 20px;
-  align-self: center;
-}
-
+input:focus { border-color: #80ecff; outline: none; box-shadow: 0 0 5px rgba(128,236,255,0.5); }
+.submit { text-align: center; margin-top: 30px; }
 .submit button {
-  padding: 10px 20px;
-  border-radius: 2rem;
-  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
-  border-color: #002647;
-  font-size: 12px;
+  padding: 10px 25px;
+  border-radius: 30px;
+  font-size: 16px;
+  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%);
+  border: 2px solid #002647;
   cursor: pointer;
-  transition: background-color 0.75s ease-in;
 }
+.submit button:hover { background: white; }
 
-.submit button:hover {
-  background-position: right center;
-  background: white;
-}
+/* Error Message */
+.error-msg { color: red; font-size: 12px; margin-top: 5px; }
 
-.action-buttons {
-  display: flex;
-  gap: 10px;
-  margin: 10px 0;
-}
+/* Details */
+.details { margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.85); border-radius: 10px; }
 
-/* Form wrapper */
-form {
+/* Data Table */
+.data-table-container {
+  max-width: 1200px;
   margin: 40px auto;
-  padding: 30px;
-  max-width: 600px;
-  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  background: rgba(255,255,255,0.95);
   border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
-
-form h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-  font-size: 24px;
-}
-
-/* Details section */
-.details {
-  margin: 20px 0;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-}
-
-.details summary {
+.action-buttons { display: flex; gap: 15px; }
+.action-buttons button, .action-buttons a {
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  color: white;
+  background-color: #008080;
   cursor: pointer;
-  font-weight: 600;
-  color: #008080;
-  margin-bottom: 10px;
+  transition: 0.3s;
 }
+.action-buttons button:hover, .action-buttons a:hover { background-color: #006666; }
 
-.details p {
-  margin-top: 10px;
-  line-height: 1.6;
-  color: #555;
-}
+/* Item Details */
+.item-details { max-width: 700px; margin: 40px auto; padding: 30px; background: rgba(255,255,255,0.95); border-radius: 15px; }
+.item-details h2 { text-align: center; margin-bottom: 20px; }
+.qr-container { text-align: center; margin-top: 20px; }
