@@ -4,114 +4,154 @@ body {
   margin: 0;
   font-family: "Poppins", verdana, sans-serif;
   background-image: url("https://cdn.glitch.global/72b70080-3b25-474a-a7f1-2196a164456b/better_better.png?v=1709484390367");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+}
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+*{
+  font-family: "Poppins", sans-serif; 
+}
+/* Navigation bar styles */
+.nav-bar {  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 20px;
+  width: 100%;
+  margin-bottom: 30px;
 }
 
+/* Button container styles */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  gap: 150px;
+  margin-top: 70px;
+  margin-bottom: 50px;
+}
+
+/* Button styles */
+.buttons button {
+  padding: 10px;
+  border-radius: 2rem;
+  width: 50vw;
+  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
+  border-color: #002647;
+  font-size: 42px;
+  transition: background-color .75s ease-in;
+  margin: 10px 0;
+}
+ 
+.buttons button:hover {
+  background-position: right center;
+  background: white;
+}
+
+/* Font styles */
+.libre-baskerville-regular {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Parent container styles */
+.parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Reset styles */
 * {
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Navbar */
-.nav-bar, .nav-bare {
+/* Navigation bar container styles */
+.nav-bare  { 
   display: flex;
   align-items: center;
   background-color: white;
-  padding: 10px 20px;
+  padding: 10px;
   margin-bottom: 20px;
 }
 
-.nav-bar img, .nav-bare img {
-  cursor: pointer;
-  width: 150px;
-  height: auto;
-  margin-right: 20px;
-}
-
+/* Navigation button styles */
 .inview,
 .input {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
   text-decoration: none;
   color: #008080;
-  margin-right: 20px;
-  transition: 0.3s ease;
+  transition: 0.5s ease;
+}
+
+.inview {
+    margin-left: 50px; /* Adjust this value to your desired size */
+    margin-right: 50px;
+}
+
+.input {
+  margin-left: 50px;
+  margin-right: 50px;
+  color: rgb(0, 151, 185);
 }
 
 .inview:hover,
 .input:hover {
-  color: #006400;
   text-decoration: none;
+  color: #006400;
 }
 
-/* Home buttons */
-.buttons {
+/* Form container styles */
+.form-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 50px;
   margin-top: 50px;
-  margin-bottom: 50px;
 }
 
-.buttons button {
-  padding: 15px 30px;
+/* Form input styles */
+.form-input {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.form-input label {
+  margin-bottom: 5px;
+}
+
+/* Submit button styles */
+.submit-button {
+  margin-top: 20px;
+  align-self: center;
+}
+
+.submit-button button {
+  padding: 10px 20px;
   border-radius: 2rem;
-  width: 60vw;
-  max-width: 400px;
   background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
   border-color: #002647;
-  font-size: 24px;
+  font-size: 12px;
   cursor: pointer;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.75s ease-in;
 }
 
-.buttons button:hover {
+.submit-button button:hover {
+  background-position: right center;
   background: white;
 }
 
-/* Form styles */
-form {
-  margin: 40px auto;
-  padding: 30px;
-  max-width: 650px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-form h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-  font-size: 24px;
-}
-
-.details {
-  margin: 20px 0;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-}
-
-.details summary {
-  cursor: pointer;
-  font-weight: 600;
-  color: #008080;
-}
-
-.details p {
-  margin-top: 10px;
-  line-height: 1.6;
-  color: #555;
-}
-
-/* Input boxes */
+/* Form input styles - IMPROVED TEXTBOXES */
 .sl,
 .sv,
 .output,
@@ -129,7 +169,11 @@ form h1 {
 .mac-address {
   display: flex;
   flex-direction: column;
-  margin: 15px 0;
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .sl label,
@@ -147,11 +191,13 @@ form h1 {
 .condit label,
 .location label,
 .mac-address label {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   font-weight: 600;
   color: #333;
+  font-size: 14px;
 }
 
+/* IMPROVED INPUT STYLING */
 .sl input,
 .sv input,
 .output input,
@@ -168,13 +214,15 @@ form h1 {
 .location input,
 .mac-address input {
   width: 100%;
-  padding: 12px;
+  padding: 12px 15px;
   border: 2px solid #e1e5e9;
   border-radius: 8px;
   font-size: 16px;
   transition: all 0.3s ease;
   background: white;
   color: #333;
+  font-family: "Poppins", sans-serif;
+  margin-top: 5px;
 }
 
 .sl input:focus,
@@ -198,10 +246,11 @@ form h1 {
   transform: translateY(-1px);
 }
 
-/* Submit button */
+/* Submit button styles */
 .submit {
   margin-top: 30px;
-  text-align: center;
+  margin-bottom: 20px;
+  align-self: center;
 }
 
 .submit button {
@@ -209,76 +258,56 @@ form h1 {
   border-radius: 2rem;
   background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
   border-color: #002647;
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: background-color 0.75s ease-in;
 }
 
 .submit button:hover {
+  background-position: right center;
   background: white;
 }
 
-/* Table action buttons */
 .action-buttons {
   display: flex;
-  flex-direction: row;
   gap: 10px;
-  justify-content: flex-start;
-}
-
-.table-btn {
-  padding: 6px 12px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  color: white;
-  font-size: 14px;
-  background-color: #008080;
-  transition: 0.3s;
-  white-space: nowrap;
-}
-
-.table-btn:hover { background-color: #006666; }
-
-.table-btn.delete {
-  background-color: #FF4C4C;
-}
-
-.table-btn.delete:hover { background-color: #cc0000; }
-
-/* Item view */
-.item-details {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 25px;
-  background: rgba(255,255,255,0.95);
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-}
-
-.item-details h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.item-details p {
   margin: 10px 0;
-  font-size: 16px;
 }
 
-.item-details button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  border-radius: 2rem;
-  background: linear-gradient(to right, #ffffff 0%, #80ecff 80%, #80ecff 100%);
-  border-color: #002647;
-  font-size: 14px;
+/* Form wrapper */
+form {
+  margin: 40px auto;
+  padding: 30px;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+form h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px;
+}
+
+/* Details section */
+.details {
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.details summary {
   cursor: pointer;
-  transition: 0.3s ease;
+  font-weight: 600;
+  color: #008080;
+  margin-bottom: 10px;
 }
 
-.item-details button:hover { background: white; }
-
-.qr-code { text-align: center; margin-top: 20px; }
+.details p {
+  margin-top: 10px;
+  line-height: 1.6;
+  color: #555;
+}
